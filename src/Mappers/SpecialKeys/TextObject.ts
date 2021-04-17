@@ -26,48 +26,48 @@ export class SpecialKeyTextObject extends GenericMapper implements SpecialKeyCom
     private conflictRegExp = /^[ai]|\{char\}$/;
 
     private mapInfos: TextObjectMapInfo[] = [
-        {
-            characters: ['b', '(', ')'],
-            method: TextObjectBlock.byParentheses,
-        },
+        // {
+        //     characters: ['b', '(', ')'],
+        //     method: TextObjectBlock.byParentheses,
+        // },
         {
             characters: ['[', ']'],
             method: TextObjectBlock.byBrackets,
         },
-        {
-            characters: ['B', '{', '}'],
-            method: TextObjectBlock.byBraces,
-        },
+        // {
+        //     characters: ['B', '{', '}'],
+        //     method: TextObjectBlock.byBraces,
+        // },
         {
             characters: ['<', '>'],
             method: TextObjectBlock.byChevrons,
         },
-        {
-            characters: ["'"],
-            method: TextObjectQuotedString.bySingle,
-        },
-        {
-            characters: ['"'],
-            method: TextObjectQuotedString.byDouble,
-        },
-        {
-            characters: ['`'],
-            method: TextObjectQuotedString.byBackward,
-        },
-        {
-            characters: ['t'],
-            method: TextObjectTag.byTag,
-        },
-        {
-            characters: ['w'],
-            method: TextObjectWord.byWord,
-            args: { useBlankSeparatedStyle: false },
-        },
-        {
-            characters: ['W'],
-            method: TextObjectWord.byWord,
-            args: { useBlankSeparatedStyle: true },
-        },
+        // {
+        //     characters: ["'"],
+        //     method: TextObjectQuotedString.bySingle,
+        // },
+        // {
+        //     characters: ['"'],
+        //     method: TextObjectQuotedString.byDouble,
+        // },
+        // {
+        //     characters: ['`'],
+        //     method: TextObjectQuotedString.byBackward,
+        // },
+        // {
+        //     characters: ['t'],
+        //     method: TextObjectTag.byTag,
+        // },
+        // {
+        //     characters: ['w'],
+        //     method: TextObjectWord.byWord,
+        //     args: { useBlankSeparatedStyle: false },
+        // },
+        // {
+        //     characters: ['W'],
+        //     method: TextObjectWord.byWord,
+        //     args: { useBlankSeparatedStyle: true },
+        // },
     ];
 
     private maps: TextObjectMap[] = [

@@ -187,4 +187,20 @@ export class ActionSelection {
 
         return Promise.resolve(true);
     }
+
+    static reverseSelection(): Thenable<boolean> {
+        const activeTextEditor = window.activeTextEditor;
+
+        if (!activeTextEditor) {
+            return Promise.resolve(false);
+        }
+
+        activeTextEditor.selections = activeTextEditor.selections.map((selection) => {
+            const { start, end } = selection;
+
+            return selection.isReversed ? new Selection(start, end) : new Selection(end, start);
+        });
+
+        return Promise.resolve(true);
+    }
 }

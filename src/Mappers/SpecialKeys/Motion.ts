@@ -27,102 +27,104 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
     private conflictRegExp = /^[0]|\{char\}$/;
 
     private maps: MotionMap[] = [
-        { keys: 'h', motionGenerators: [MotionCharacter.left] },
+        { keys: 'd', motionGenerators: [MotionCharacter.left] },
         { keys: 'left', motionGenerators: [MotionCharacter.left] },
-        { keys: 'l', motionGenerators: [MotionCharacter.right] },
+        { keys: 'n', motionGenerators: [MotionCharacter.right] },
         { keys: 'right', motionGenerators: [MotionCharacter.right] },
-        { keys: 'k', motionGenerators: [MotionCharacter.up] },
+        { keys: 't', motionGenerators: [MotionCharacter.up] },
         { keys: 'up', motionGenerators: [MotionCharacter.up] },
-        { keys: 'j', motionGenerators: [MotionCharacter.down] },
+        { keys: 'h', motionGenerators: [MotionCharacter.down] },
         { keys: 'down', motionGenerators: [MotionCharacter.down] },
 
-        { keys: 'w', motionGenerators: [MotionWord.nextStart] },
+        { keys: ',', motionGenerators: [MotionWord.nextStart] },
         {
-            keys: 'W',
+            keys: '<',
             motionGenerators: [MotionWord.nextStart],
             args: { useBlankSeparatedStyle: true },
         },
-        { keys: 'e', motionGenerators: [MotionWord.nextEnd] },
+        { keys: '.', motionGenerators: [MotionWord.nextEnd] },
         {
-            keys: 'E',
+            keys: '>',
             motionGenerators: [MotionWord.nextEnd],
             args: { useBlankSeparatedStyle: true },
         },
-        { keys: 'b', motionGenerators: [MotionWord.prevStart] },
+        { keys: 'x', motionGenerators: [MotionWord.prevStart] },
         {
-            keys: 'B',
+            keys: 'X',
             motionGenerators: [MotionWord.prevStart],
             args: { useBlankSeparatedStyle: true },
         },
-        { keys: 'g e', motionGenerators: [MotionWord.prevEnd] },
-        {
-            keys: 'g E',
-            motionGenerators: [MotionWord.prevEnd],
-            args: { useBlankSeparatedStyle: true },
-        },
 
-        { keys: 'f {char}', motionGenerators: [MotionMatch.next] },
-        { keys: 'F {char}', motionGenerators: [MotionMatch.prev] },
-        {
-            keys: 't {char}',
-            motionGenerators: [MotionMatch.next],
-            args: { isTill: true },
-        },
-        {
-            keys: 'T {char}',
-            motionGenerators: [MotionMatch.prev],
-            args: { isTill: true },
-        },
+        // { keys: 'j', motionGenerators: [MotionWord.prevEnd] },
+        // {
+        //     keys: 'g E',
+        //     motionGenerators: [MotionWord.prevEnd],
+        //     args: { useBlankSeparatedStyle: true },
+        // },
 
-        { keys: ';', motionGenerators: [MotionMatch.repeatLast] },
-        {
-            keys: ',',
-            motionGenerators: [MotionMatch.repeatLast],
-            args: { isReverse: true },
-        },
+        { keys: 'u {char}', motionGenerators: [MotionMatch.next] },
+        { keys: 'U {char}', motionGenerators: [MotionMatch.prev] },
+        // {
+        //     keys: 't {char}',
+        //     motionGenerators: [MotionMatch.next],
+        //     args: { isTill: true },
+        // },
+        // {
+        //     keys: 'T {char}',
+        //     motionGenerators: [MotionMatch.prev],
+        //     args: { isTill: true },
+        // },
 
-        {
-            keys: '%',
-            motionGenerators: [
-                (args: { n?: number }) =>
-                    args.n === undefined
-                        ? MotionMatchPair.matchPair()
-                        : MotionDocument.toLinePercent({ n: args.n }),
-            ],
-        },
-        { keys: '^', motionGenerators: [MotionLine.firstNonBlank] },
+        // { keys: ';', motionGenerators: [MotionMatch.repeatLast] },
+        // {
+        //     keys: ',',
+        //     motionGenerators: [MotionMatch.repeatLast],
+        //     args: { isReverse: true },
+        // },
+
+        // {
+        //     keys: '%',
+        //     motionGenerators: [
+        //         (args: { n?: number }) =>
+        //             args.n === undefined
+        //                 ? MotionMatchPair.matchPair()
+        //                 : MotionDocument.toLinePercent({ n: args.n }),
+        //     ],
+        // },
+        // { keys: '^', motionGenerators: [MotionLine.firstNonBlank] },
         { keys: '0', motionGenerators: [MotionLine.start] },
-        { keys: '$', motionGenerators: [MotionLine.end] },
 
-        {
-            keys: '-',
-            motionGenerators: [MotionCharacter.up, MotionLine.firstNonBlank],
-        },
-        {
-            keys: '+',
-            motionGenerators: [MotionCharacter.down, MotionLine.firstNonBlank],
-        },
-        {
-            keys: '_',
-            motionGenerators: [
-                (args: { n?: number }) =>
-                    MotionCharacter.down({
-                        n: args.n === undefined ? 0 : args.n - 1,
-                    }),
-                MotionLine.firstNonBlank,
-            ],
-        },
+        { keys: 'b', motionGenerators: [MotionLine.end] },
 
-        { keys: '{', motionGenerators: [MotionParagraph.prev] },
-        { keys: '}', motionGenerators: [MotionParagraph.next] },
+        // {
+        //     keys: '-',
+        //     motionGenerators: [MotionCharacter.up, MotionLine.firstNonBlank],
+        // },
+        // {
+        //     keys: '+',
+        //     motionGenerators: [MotionCharacter.down, MotionLine.firstNonBlank],
+        // },
+        // {
+        //     keys: '_',
+        //     motionGenerators: [
+        //         (args: { n?: number }) =>
+        //             MotionCharacter.down({
+        //                 n: args.n === undefined ? 0 : args.n - 1,
+        //             }),
+        //         MotionLine.firstNonBlank,
+        //     ],
+        // },
 
-        { keys: 'g g', motionGenerators: [MotionDocument.toLineOrFirst] },
-        { keys: 'G', motionGenerators: [MotionDocument.toLineOrLast] },
+        { keys: 'T', motionGenerators: [MotionParagraph.prev] },
+        { keys: 'H', motionGenerators: [MotionParagraph.next] },
 
-        { keys: 'space', motionGenerators: [MotionDirection.next] },
-        { keys: 'backspace', motionGenerators: [MotionDirection.prev] },
-        { keys: 'g d', motionGenerators: [MotionNavigation.toDeclaration] },
-        { keys: 'g D', motionGenerators: [MotionNavigation.toTypeDefinition] },
+        { keys: 'i', motionGenerators: [MotionDocument.toLineOrFirst] },
+        { keys: 'I', motionGenerators: [MotionDocument.toLineOrLast] },
+
+        // { keys: 'space', motionGenerators: [MotionDirection.next] },
+        // { keys: 'backspace', motionGenerators: [MotionDirection.prev] },
+        // { keys: 'g d', motionGenerators: [MotionNavigation.toDeclaration] },
+        // { keys: 'g D', motionGenerators: [MotionNavigation.toTypeDefinition] },
     ];
 
     constructor() {

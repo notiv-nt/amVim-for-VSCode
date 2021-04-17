@@ -4,7 +4,7 @@ import { SymbolMetadata } from '../Symbols/Metadata';
 import { Mode, ModeID } from './Mode';
 import { Configuration } from '../Configuration';
 import { CommandMap } from '../Mappers/Command';
-import { ActionBlockCursor } from '../Actions/BlockCursor';
+import { ActionUnderlineCursor } from '../Actions/UnderlineCursor';
 import { ActionRelativeLineNumbers } from '../Actions/RelativeLineNumbers';
 import { ActionMoveCursor } from '../Actions/MoveCursor';
 import { ActionPage } from '../Actions/Page';
@@ -37,22 +37,43 @@ export class ModeNormal extends Mode {
             actions: [ActionMoveCursor.byMotions],
             args: { noEmptyAtLineEnd: true },
         },
-        {
-            keys: '{N} {motion}',
-            actions: [ActionMoveCursor.byMotions],
-            args: { noEmptyAtLineEnd: true },
-        },
 
-        { keys: 'ctrl+b', actions: [ActionPage.up] },
-        { keys: 'ctrl+f', actions: [ActionPage.down] },
+        // {
+        //     keys: '{N} {motion}',
+        //     actions: [ActionMoveCursor.byMotions],
+        //     args: { noEmptyAtLineEnd: true },
+        // },
 
-        { keys: 'i', actions: [ActionMode.toInsert] },
+        // { keys: 'ctrl+b', actions: [ActionPage.up] },
+        // { keys: 'ctrl+f', actions: [ActionPage.down] },
+
+        { keys: 'c', actions: [ActionMode.toInsert] },
+        // {
+        //     keys: 'I',
+        //     actions: [
+        //         () =>
+        //             ActionMoveCursor.byMotions({
+        //                 motions: [MotionLine.firstNonBlank()],
+        //             }),
+        //         ActionMode.toInsert,
+        //     ],
+        // },
         {
-            keys: 'I',
+            keys: 'z',
             actions: [
                 () =>
                     ActionMoveCursor.byMotions({
-                        motions: [MotionLine.firstNonBlank()],
+                        motions: [MotionLine.start()],
+                    }),
+                ActionMode.toInsert,
+            ],
+        },
+        {
+            keys: 'Ω',
+            actions: [
+                () =>
+                    ActionMoveCursor.byMotions({
+                        motions: [MotionLine.start()],
                     }),
                 ActionMode.toInsert,
             ],
@@ -67,8 +88,22 @@ export class ModeNormal extends Mode {
                 ActionMode.toInsert,
             ],
         },
+        // {
+        //     keys: 'A',
+        //     actions: [
+        //         () => ActionMoveCursor.byMotions({ motions: [MotionLine.end()] }),
+        //         ActionMode.toInsert,
+        //     ],
+        // },
         {
-            keys: 'A',
+            keys: 's',
+            actions: [
+                () => ActionMoveCursor.byMotions({ motions: [MotionLine.end()] }),
+                ActionMode.toInsert,
+            ],
+        },
+        {
+            keys: 'ß',
             actions: [
                 () => ActionMoveCursor.byMotions({ motions: [MotionLine.end()] }),
                 ActionMode.toInsert,
@@ -76,16 +111,16 @@ export class ModeNormal extends Mode {
         },
 
         {
-            keys: 'o',
+            keys: 'r',
             actions: [ActionInsert.newLineAfter, ActionMode.toInsert],
         },
         {
-            keys: 'O',
+            keys: 'R',
             actions: [ActionInsert.newLineBefore, ActionMode.toInsert],
         },
 
         {
-            keys: 's',
+            keys: 'o',
             actions: [ActionDelete.selectionsOrRight, ActionMode.toInsert],
             args: {
                 shouldYank: true,
@@ -93,156 +128,156 @@ export class ModeNormal extends Mode {
         },
 
         {
-            keys: 'X',
+            keys: 'Q',
             actions: [ActionDelete.selectionsOrLeft],
             args: { shouldYank: true },
         },
+        // {
+        //     keys: '{N} X',
+        //     actions: [ActionDelete.selectionsOrLeft],
+        //     args: { shouldYank: true },
+        // },
         {
-            keys: '{N} X',
-            actions: [ActionDelete.selectionsOrLeft],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'x',
+            keys: 'q',
             actions: [ActionDelete.selectionsOrRight, ActionSelection.validateSelections],
             args: {
                 shouldYank: true,
             },
         },
+        // {
+        //     keys: '{N} x',
+        //     actions: [ActionDelete.selectionsOrRight, ActionSelection.validateSelections],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: 'delete',
+        //     actions: [ActionDelete.selectionsOrRight, ActionSelection.validateSelections],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
         {
-            keys: '{N} x',
-            actions: [ActionDelete.selectionsOrRight, ActionSelection.validateSelections],
-            args: {
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'delete',
-            actions: [ActionDelete.selectionsOrRight, ActionSelection.validateSelections],
-            args: {
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'd d',
+            keys: 'e',
             actions: [ActionDelete.byLines],
             args: { shouldYank: true },
         },
+        // {
+        //     keys: '{N} d d',
+        //     actions: [ActionDelete.byLines],
+        //     args: { shouldYank: true },
+        // },
+        // {
+        //     keys: 'd {N} d',
+        //     actions: [ActionDelete.byLines],
+        //     args: { shouldYank: true },
+        // },
+        // {
+        //     keys: 'D',
+        //     actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
+        //     args: {
+        //         motions: [MotionLine.end()],
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: 'd {motion}',
+        //     actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: 'd {N} {motion}',
+        //     actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: '{N} d {motion}',
+        //     actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: 'd {textObject}',
+        //     actions: [ActionDelete.byTextObject, ActionSelection.validateSelections],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
         {
-            keys: '{N} d d',
-            actions: [ActionDelete.byLines],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'd {N} d',
-            actions: [ActionDelete.byLines],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'D',
-            actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
-            args: {
-                motions: [MotionLine.end()],
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'd {motion}',
-            actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
-            args: {
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'd {N} {motion}',
-            actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
-            args: {
-                shouldYank: true,
-            },
-        },
-        {
-            keys: '{N} d {motion}',
-            actions: [ActionDelete.byMotions, ActionSelection.validateSelections],
-            args: {
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'd {textObject}',
-            actions: [ActionDelete.byTextObject, ActionSelection.validateSelections],
-            args: {
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'C',
+            keys: 'J',
             actions: [ActionDelete.byMotions, ActionMode.toInsert],
             args: {
                 motions: [MotionLine.end()],
                 shouldYank: true,
             },
         },
-        {
-            keys: 'c c',
-            actions: [
-                () =>
-                    ActionMoveCursor.byMotions({
-                        motions: [MotionLine.firstNonBlank()],
-                    }),
-                ActionDelete.byMotions,
-                ActionMode.toInsert,
-            ],
-            args: {
-                motions: [MotionLine.end()],
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'S',
-            actions: [
-                () =>
-                    ActionMoveCursor.byMotions({
-                        motions: [MotionLine.firstNonBlank()],
-                    }),
-                ActionDelete.byMotions,
-                ActionMode.toInsert,
-            ],
-            args: {
-                motions: [MotionLine.end()],
-                shouldYank: true,
-            },
-        },
-        {
-            keys: 'c {motion}',
-            actions: [ActionDelete.byMotions, ActionMode.toInsert],
-            args: {
-                shouldYank: true,
-                isChangeAction: true,
-            },
-        },
-        {
-            keys: 'c {N} {motion}',
-            actions: [ActionDelete.byMotions, ActionMode.toInsert],
-            args: {
-                shouldYank: true,
-                isChangeAction: true,
-            },
-        },
-        {
-            keys: 'c {textObject}',
-            actions: [ActionDelete.byTextObject, ActionMode.toInsert],
-            args: {
-                shouldYank: true,
-            },
-        },
-        { keys: 'J', actions: [ActionJoinLines.onSelections] },
+        // {
+        //     keys: 'c c',
+        //     actions: [
+        //         () =>
+        //             ActionMoveCursor.byMotions({
+        //                 motions: [MotionLine.firstNonBlank()],
+        //             }),
+        //         ActionDelete.byMotions,
+        //         ActionMode.toInsert,
+        //     ],
+        //     args: {
+        //         motions: [MotionLine.end()],
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: 'S',
+        //     actions: [
+        //         () =>
+        //             ActionMoveCursor.byMotions({
+        //                 motions: [MotionLine.firstNonBlank()],
+        //             }),
+        //         ActionDelete.byMotions,
+        //         ActionMode.toInsert,
+        //     ],
+        //     args: {
+        //         motions: [MotionLine.end()],
+        //         shouldYank: true,
+        //     },
+        // },
+        // {
+        //     keys: 'c {motion}',
+        //     actions: [ActionDelete.byMotions, ActionMode.toInsert],
+        //     args: {
+        //         shouldYank: true,
+        //         isChangeAction: true,
+        //     },
+        // },
+        // {
+        //     keys: 'c {N} {motion}',
+        //     actions: [ActionDelete.byMotions, ActionMode.toInsert],
+        //     args: {
+        //         shouldYank: true,
+        //         isChangeAction: true,
+        //     },
+        // },
+        // {
+        //     keys: 'c {textObject}',
+        //     actions: [ActionDelete.byTextObject, ActionMode.toInsert],
+        //     args: {
+        //         shouldYank: true,
+        //     },
+        // },
+        { keys: 'D', actions: [ActionJoinLines.onSelections] },
 
-        { keys: 'r {char}', actions: [ActionReplace.charactersWithCharacter] },
-        { keys: '{N} r {char}', actions: [ActionReplace.charactersWithCharacter] },
-        { keys: 'R', actions: [ActionMode.toReplace] },
+        { keys: 'p {char}', actions: [ActionReplace.charactersWithCharacter] },
+        // { keys: '{N} r {char}', actions: [ActionReplace.charactersWithCharacter] },
+        // { keys: 'R', actions: [ActionMode.toReplace] },
 
         {
-            keys: '~',
+            keys: '3',
             actions: [
                 ActionCase.switchActives,
                 () =>
@@ -251,90 +286,95 @@ export class ModeNormal extends Mode {
                     }),
             ],
         },
-        {
-            keys: '{N} ~',
-            actions: [
-                ActionCase.switchActives,
-                (n) =>
-                    ActionMoveCursor.byMotions({
-                        motions: [MotionCharacter.right(n)],
-                    }),
-            ],
-        },
+        // {
+        //     keys: '{N} ~',
+        //     actions: [
+        //         ActionCase.switchActives,
+        //         (n) =>
+        //             ActionMoveCursor.byMotions({
+        //                 motions: [MotionCharacter.right(n)],
+        //             }),
+        //     ],
+        // },
 
-        { keys: 'y y', actions: [ActionRegister.yankLines] },
-        { keys: '{N} y y', actions: [ActionRegister.yankLines] },
-        { keys: 'y {N} y', actions: [ActionRegister.yankLines] },
-        { keys: 'Y', actions: [ActionRegister.yankLines] },
-        { keys: 'y {motion}', actions: [ActionRegister.yankByMotions] },
-        { keys: 'y {N} {motion}', actions: [ActionRegister.yankByMotions] },
-        { keys: 'y {textObject}', actions: [ActionRegister.yankByTextObject] },
-        { keys: 'p', actions: [ActionRegister.putAfter] },
-        { keys: '{N} p', actions: [ActionRegister.putAfter] },
-        { keys: 'P', actions: [ActionRegister.putBefore] },
-        { keys: '{N} P', actions: [ActionRegister.putBefore] },
+        { keys: 'f', actions: [ActionRegister.yankLines] },
+        // { keys: '{N} y y', actions: [ActionRegister.yankLines] },
+        // { keys: 'y {N} y', actions: [ActionRegister.yankLines] },
+        // { keys: 'Y', actions: [ActionRegister.yankLines] },
+        // { keys: 'y {motion}', actions: [ActionRegister.yankByMotions] },
+        // { keys: 'y {N} {motion}', actions: [ActionRegister.yankByMotions] },
+        // { keys: 'y {textObject}', actions: [ActionRegister.yankByTextObject] },
+        { keys: 'l', actions: [ActionRegister.putAfter] },
+        // { keys: '{N} p', actions: [ActionRegister.putAfter] },
+        { keys: 'L', actions: [ActionRegister.putBefore] },
+        // { keys: '{N} P', actions: [ActionRegister.putBefore] },
 
-        { keys: 'n', actions: [ActionFind.next] },
-        { keys: 'N', actions: [ActionFind.prev] },
-        { keys: '*', actions: [ActionFind.byIndicator, ActionFind.next] },
-        { keys: '#', actions: [ActionFind.byIndicator, ActionFind.prev] },
+        { keys: '8', actions: [ActionFind.prev] },
+        { keys: '9', actions: [ActionFind.next] },
+        // { keys: '*', actions: [ActionFind.byIndicator, ActionFind.next] },
+        // { keys: '#', actions: [ActionFind.byIndicator, ActionFind.prev] },
 
-        { keys: '= {motion}', actions: [ActionFilter.Format.byMotions] },
-        { keys: '= {N} {motion}', actions: [ActionFilter.Format.byMotions] },
-        { keys: '= =', actions: [ActionFilter.Format.byCursors] },
+        // { keys: '= {motion}', actions: [ActionFilter.Format.byMotions] },
+        // { keys: '= {N} {motion}', actions: [ActionFilter.Format.byMotions] },
+        // { keys: '= =', actions: [ActionFilter.Format.byCursors] },
 
-        {
-            keys: 'u',
-            actions: [ActionHistory.undo, ActionSelection.validateSelections],
-        },
-        {
-            keys: 'ctrl+r',
-            actions: [ActionHistory.redo, ActionSelection.validateSelections],
-        },
+        // {
+        //     keys: 'u',
+        //     actions: [ActionHistory.undo, ActionSelection.validateSelections],
+        // },
+        // {
+        //     keys: 'ctrl+r',
+        //     actions: [ActionHistory.redo, ActionSelection.validateSelections],
+        // },
 
-        { keys: '< <', actions: [ActionIndent.decrease] },
-        { keys: '> >', actions: [ActionIndent.increase] },
+        // { keys: '< <', actions: [ActionIndent.decrease] },
+        // { keys: '> >', actions: [ActionIndent.increase] },
 
         { keys: '/', actions: [ActionFind.focusFindWidget] },
 
-        { keys: 'v', actions: [ActionMode.toVisual] },
-        { keys: 'V', actions: [ActionMode.toVisualLine] },
+        { keys: 'k', actions: [ActionMode.toVisual] },
+        { keys: 'K', actions: [ActionMode.toVisualLine] },
 
         {
-            keys: 'z .',
+            keys: '`',
             actions: [ActionReveal.primaryCursor],
             args: { revealType: TextEditorRevealType.InCenter },
         },
         {
-            keys: 'z z',
+            keys: ';',
             actions: [ActionReveal.primaryCursor],
             args: { revealType: TextEditorRevealType.InCenter },
         },
-        {
-            keys: 'z t',
-            actions: [ActionReveal.primaryCursor],
-            args: { revealType: TextEditorRevealType.AtTop },
-        },
-        { keys: 'z c', actions: [ActionFold.fold] },
-        { keys: 'z o', actions: [ActionFold.unfold] },
-        { keys: 'z M', actions: [ActionFold.foldAll] },
-        { keys: 'z R', actions: [ActionFold.unfoldAll] },
 
-        { keys: ':', actions: [ActionCommandLine.promptAndRun] },
+        // {
+        //     keys: 'j',
+        //     actions: [ActionReveal.primaryCursor],
+        //     args: { revealType: TextEditorRevealType.AtTop },
+        // },
+        // { keys: 'z c', actions: [ActionFold.fold] },
+        // { keys: 'z o', actions: [ActionFold.unfold] },
+        // { keys: 'z M', actions: [ActionFold.foldAll] },
+        // { keys: 'z R', actions: [ActionFold.unfoldAll] },
 
-        { keys: '.', actions: [this.repeatRecordedCommandMaps.bind(this)] },
+        // { keys: ':', actions: [ActionCommandLine.promptAndRun] },
 
-        {
-            keys: 'ctrl+c',
-            actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
-        },
-        {
-            keys: 'ctrl+[',
-            actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
-        },
+        // { keys: '.', actions: [this.repeatRecordedCommandMaps.bind(this)] },
+
+        // {
+        //     keys: 'ctrl+c',
+        //     actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
+        // },
+        // {
+        //     keys: 'ctrl+[',
+        //     actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
+        // },
         {
             keys: 'escape',
             actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
+        },
+        {
+            keys: 'space',
+            actions: [ActionInsert.space],
         },
     ];
 
@@ -349,7 +389,7 @@ export class ModeNormal extends Mode {
     enter(): void {
         super.enter();
 
-        ActionBlockCursor.on();
+        ActionUnderlineCursor.on();
 
         if (Configuration.smartRelativeLineNumbers) {
             ActionRelativeLineNumbers.on();
@@ -359,7 +399,7 @@ export class ModeNormal extends Mode {
     exit(): void {
         super.exit();
 
-        ActionBlockCursor.off();
+        ActionUnderlineCursor.off();
     }
 
     private _recordedCommandMaps: CommandMap[];

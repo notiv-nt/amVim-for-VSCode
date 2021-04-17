@@ -1,4 +1,4 @@
-import { window } from 'vscode';
+import { TextEditorRevealType, window } from 'vscode';
 import { StaticReflect } from '../LanguageExtensions/StaticReflect';
 import { SymbolMetadata } from '../Symbols/Metadata';
 import { RangeOffset } from '../Types/RangeOffset';
@@ -21,6 +21,9 @@ import { ActionNativeEscape } from '../Actions/NativeEscape';
 import { ActionMode } from '../Actions/Mode';
 import { ActionIndent } from '../Actions/Indent';
 import { ActionFold } from '../Actions/Fold';
+import { ActionReveal } from '../Actions/Reveal';
+import { ActionBlockOutlineCursor } from '../Actions/BlockOutlineCursor';
+import { ActionBlockCursor } from '../Actions/BlockCursor';
 
 export class ModeVisualLine extends Mode {
     id = ModeID.VISUAL_LINE;
@@ -32,165 +35,177 @@ export class ModeVisualLine extends Mode {
             actions: [ActionMoveCursor.byMotions],
             args: { isVisualLineMode: true },
         },
-        {
-            keys: '{N} {motion}',
-            actions: [ActionMoveCursor.byMotions],
-            args: { isVisualLineMode: true },
-        },
 
-        {
-            keys: 'ctrl+b',
-            actions: [ActionPage.up],
-            args: { moveType: PageMoveType.SelectLine },
-        },
-        {
-            keys: 'ctrl+f',
-            actions: [ActionPage.down],
-            args: { moveType: PageMoveType.SelectLine },
-        },
+        // {
+        //     keys: '{N} {motion}',
+        //     actions: [ActionMoveCursor.byMotions],
+        //     args: { isVisualLineMode: true },
+        // },
 
-        {
-            keys: 'I',
-            actions: [ActionSelection.shrinkToStarts, ActionMode.toInsert],
-        },
-        {
-            keys: 'A',
-            actions: [ActionSelection.shrinkToEnds, ActionMode.toInsert],
-        },
+        // {
+        //     keys: 'ctrl+b',
+        //     actions: [ActionPage.up],
+        //     args: { moveType: PageMoveType.SelectLine },
+        // },
+        // {
+        //     keys: 'ctrl+f',
+        //     actions: [ActionPage.down],
+        //     args: { moveType: PageMoveType.SelectLine },
+        // },
 
+        // {
+        //     keys: 'I',
+        //     actions: [ActionSelection.shrinkToStarts, ActionMode.toInsert],
+        // },
+        // {
+        //     keys: 'A',
+        //     actions: [ActionSelection.shrinkToEnds, ActionMode.toInsert],
+        // },
+
+        // {
+        //     keys: 'backspace',
+        //     actions: [ActionDelete.byLines],
+        //     args: { shouldYank: true },
+        // },
+        // {
+        //     keys: 'delete',
+        //     actions: [ActionDelete.byLines],
+        //     args: { shouldYank: true },
+        // },
         {
-            keys: 'backspace',
+            keys: 'q',
             actions: [ActionDelete.byLines],
             args: { shouldYank: true },
         },
         {
-            keys: 'delete',
+            keys: 'Q',
             actions: [ActionDelete.byLines],
             args: { shouldYank: true },
         },
+        // {
+        //     keys: 'd',
+        //     actions: [ActionDelete.byLines],
+        //     args: { shouldYank: true },
+        // },
+        // {
+        //     keys: 'D',
+        //     actions: [ActionDelete.byLines],
+        //     args: { shouldYank: true },
+        // },
+        // {
+        //     keys: 'c',
+        //     actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
+        //     args: { shouldYank: true },
+        // },
+        // {
+        //     keys: 'C',
+        //     actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
+        //     args: { shouldYank: true },
+        // },
         {
-            keys: 'x',
-            actions: [ActionDelete.byLines],
+            keys: 'o',
+            actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
             args: { shouldYank: true },
         },
+        // {
+        //     keys: 'S',
+        //     actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
+        //     args: { shouldYank: true },
+        // },
         {
-            keys: 'X',
-            actions: [ActionDelete.byLines],
-            args: { shouldYank: true },
+            keys: 'f',
+            actions: [ActionRegister.yankLines, ActionSelection.shrinkToStarts],
         },
-        {
-            keys: 'd',
-            actions: [ActionDelete.byLines],
-            args: { shouldYank: true },
-        },
+        // {
+        //     keys: 'Y',
+        //     actions: [ActionRegister.yankLines, ActionSelection.shrinkToStarts],
+        // },
         {
             keys: 'D',
-            actions: [ActionDelete.byLines],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'c',
-            actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'C',
-            actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 's',
-            actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'S',
-            actions: [ActionDelete.byLines, ActionInsert.newLineBefore, ActionMode.toInsert],
-            args: { shouldYank: true },
-        },
-        {
-            keys: 'y',
-            actions: [ActionRegister.yankLines, ActionSelection.shrinkToStarts],
-        },
-        {
-            keys: 'Y',
-            actions: [ActionRegister.yankLines, ActionSelection.shrinkToStarts],
-        },
-        {
-            keys: 'J',
             actions: [ActionJoinLines.onSelections, ActionSelection.shrinkToActives],
         },
 
         {
-            keys: 'p',
+            keys: 'l',
             actions: [ActionReplace.selectionsWithRegister],
             args: {
-                shouldYank: true,
+                shouldYank: false,
                 isLinewise: true,
             },
         },
         {
-            keys: 'P',
+            keys: 'L',
             actions: [ActionReplace.selectionsWithRegister],
             args: {
-                shouldYank: true,
+                shouldYank: false,
                 isLinewise: true,
             },
         },
 
         {
-            keys: 'r {char}',
+            keys: 'p {char}',
             actions: [ActionReplace.selectionsWithCharacter, ActionSelection.shrinkToStarts],
         },
 
         {
-            keys: '~',
-            actions: [ActionCase.switchSelections, ActionSelection.shrinkToStarts],
+            keys: '3',
+            actions: [ActionCase.switchSelections /* , ActionSelection.shrinkToStarts */],
         },
-        {
-            keys: 'u',
-            actions: [ActionCase.lowercaseSelections, ActionSelection.shrinkToStarts],
-        },
-        {
-            keys: 'U',
-            actions: [ActionCase.uppercaseSelections, ActionSelection.shrinkToStarts],
-        },
-        {
-            keys: 'g ?',
-            actions: [ActionCase.rot13Selections, ActionSelection.shrinkToStarts],
-        },
+        // {
+        //     keys: 'u',
+        //     actions: [ActionCase.lowercaseSelections, ActionSelection.shrinkToStarts],
+        // },
+        // {
+        //     keys: 'U',
+        //     actions: [ActionCase.uppercaseSelections, ActionSelection.shrinkToStarts],
+        // },
+        // {
+        //     keys: 'g ?',
+        //     actions: [ActionCase.rot13Selections, ActionSelection.shrinkToStarts],
+        // },
 
-        { keys: '=', actions: [ActionFilter.Format.bySelections] },
+        // { keys: '=', actions: [ActionFilter.Format.bySelections] },
 
-        {
-            keys: '<',
-            actions: [ActionIndent.decrease],
-            args: { isVisualLineMode: true },
-        },
-        {
-            keys: '>',
-            actions: [ActionIndent.increase],
-            args: { isVisualLineMode: true },
-        },
+        // {
+        //     keys: '<',
+        //     actions: [ActionIndent.decrease],
+        //     args: { isVisualLineMode: true },
+        // },
+        // {
+        //     keys: '>',
+        //     actions: [ActionIndent.increase],
+        //     args: { isVisualLineMode: true },
+        // },
 
-        { keys: '/', actions: [ActionFind.focusFindWidget] },
+        // { keys: '/', actions: [ActionFind.focusFindWidget] },
 
-        { keys: 'v', actions: [ActionMode.toVisual] },
-        { keys: 'V', actions: [ActionSelection.shrinkToActives] },
-
-        { keys: 'z c', actions: [ActionFold.fold] },
-        { keys: 'z o', actions: [ActionFold.unfold] },
-        { keys: 'z M', actions: [ActionFold.foldAll] },
-        { keys: 'z R', actions: [ActionFold.unfoldAll] },
+        { keys: 'k', actions: [ActionSelection.shrinkToActives] },
+        { keys: 'K', actions: [ActionSelection.shrinkToActives] },
 
         {
-            keys: 'ctrl+c',
-            actions: [ActionNativeEscape.press, ActionSelection.shrinkToActives],
+            keys: '`',
+            actions: [ActionReveal.primaryCursor],
+            args: { revealType: TextEditorRevealType.InCenter },
         },
         {
-            keys: 'ctrl+[',
-            actions: [ActionNativeEscape.press, ActionSelection.shrinkToActives],
+            keys: ';',
+            actions: [ActionReveal.primaryCursor],
+            args: { revealType: TextEditorRevealType.InCenter },
         },
+
+        // { keys: 'z c', actions: [ActionFold.fold] },
+        // { keys: 'z o', actions: [ActionFold.unfold] },
+        // { keys: 'z M', actions: [ActionFold.foldAll] },
+        // { keys: 'z R', actions: [ActionFold.unfoldAll] },
+
+        // {
+        //     keys: 'ctrl+c',
+        //     actions: [ActionNativeEscape.press, ActionSelection.shrinkToActives],
+        // },
+        // {
+        //     keys: 'ctrl+[',
+        //     actions: [ActionNativeEscape.press, ActionSelection.shrinkToActives],
+        // },
         {
             keys: 'escape',
             actions: [ActionNativeEscape.press, ActionSelection.shrinkToActives],
@@ -209,10 +224,17 @@ export class ModeVisualLine extends Mode {
         super.enter();
 
         ActionSelection.expandToLine();
+        ActionBlockOutlineCursor.on();
 
         if (Configuration.smartRelativeLineNumbers) {
             ActionRelativeLineNumbers.on();
         }
+    }
+
+    exit(): void {
+        super.exit();
+
+        ActionBlockOutlineCursor.off();
     }
 
     private _recordedCommandMaps: CommandMap[];

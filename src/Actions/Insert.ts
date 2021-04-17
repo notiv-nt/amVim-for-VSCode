@@ -26,4 +26,9 @@ export class ActionInsert {
     static newLineAfter(): Thenable<boolean | undefined> {
         return commands.executeCommand('editor.action.insertLineAfter');
     }
+
+    @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
+    static space(): Thenable<boolean | undefined> {
+        return commands.executeCommand('default:type', { text: ' ' });
+    }
 }
