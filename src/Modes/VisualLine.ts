@@ -24,6 +24,7 @@ import { ActionFold } from '../Actions/Fold';
 import { ActionReveal } from '../Actions/Reveal';
 import { ActionBlockOutlineCursor } from '../Actions/BlockOutlineCursor';
 import { ActionBlockCursor } from '../Actions/BlockCursor';
+import { ActionBookmark } from '../Actions/Bookmarks';
 
 export class ModeVisualLine extends Mode {
     id = ModeID.VISUAL_LINE;
@@ -147,6 +148,8 @@ export class ModeVisualLine extends Mode {
             actions: [ActionReplace.selectionsWithCharacter, ActionSelection.shrinkToStarts],
         },
 
+        { keys: '1', actions: [ActionCase.lowercaseSelections] },
+        { keys: '2', actions: [ActionCase.uppercaseSelections] },
         {
             keys: '3',
             actions: [ActionCase.switchSelections /* , ActionSelection.shrinkToStarts */],
@@ -192,6 +195,10 @@ export class ModeVisualLine extends Mode {
             actions: [ActionReveal.primaryCursor],
             args: { revealType: TextEditorRevealType.InCenter },
         },
+
+        { keys: 'v', actions: [ActionBookmark.toggleBookmark] },
+        { keys: 'w', actions: [ActionBookmark.jumpToNext] },
+        { keys: 'W', actions: [ActionBookmark.jumpToPrevious] },
 
         // { keys: 'z c', actions: [ActionFold.fold] },
         // { keys: 'z o', actions: [ActionFold.unfold] },

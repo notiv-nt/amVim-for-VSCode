@@ -26,6 +26,7 @@ import { ActionFold } from '../Actions/Fold';
 import { ActionCommandLine } from '../Actions/CommandLine';
 import { MotionCharacter } from '../Motions/Character';
 import { MotionLine } from '../Motions/Line';
+import { ActionBookmark } from '../Actions/Bookmarks';
 
 export class ModeNormal extends Mode {
     id = ModeID.NORMAL;
@@ -276,6 +277,8 @@ export class ModeNormal extends Mode {
         // { keys: '{N} r {char}', actions: [ActionReplace.charactersWithCharacter] },
         // { keys: 'R', actions: [ActionMode.toReplace] },
 
+        { keys: '1', actions: [ActionCase.lowercaseSelections] },
+        { keys: '2', actions: [ActionCase.uppercaseSelections] },
         {
             keys: '3',
             actions: [
@@ -345,6 +348,10 @@ export class ModeNormal extends Mode {
             actions: [ActionReveal.primaryCursor],
             args: { revealType: TextEditorRevealType.InCenter },
         },
+
+        { keys: 'v', actions: [ActionBookmark.toggleBookmark] },
+        { keys: 'w', actions: [ActionBookmark.jumpToNext] },
+        { keys: 'W', actions: [ActionBookmark.jumpToPrevious] },
 
         // {
         //     keys: 'j',
