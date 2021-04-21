@@ -34,6 +34,6 @@ export class ActionInsert {
 
     @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
     static enter(): Thenable<boolean | undefined> {
-        return commands.executeCommand('default:type', { text: ' ' });
+        return commands.executeCommand('default:type', { text: '\n' });
     }
 }

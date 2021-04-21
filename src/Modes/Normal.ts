@@ -396,7 +396,7 @@ export class ModeNormal extends Mode {
             actions: [ActionInsert.space],
         },
         {
-            keys: 'enter',
+            keys: '\n',
             actions: [ActionInsert.enter],
         },
     ];
