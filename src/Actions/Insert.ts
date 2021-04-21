@@ -31,4 +31,9 @@ export class ActionInsert {
     static space(): Thenable<boolean | undefined> {
         return commands.executeCommand('default:type', { text: ' ' });
     }
+
+    @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
+    static enter(): Thenable<boolean | undefined> {
+        return commands.executeCommand('default:type', { text: ' ' });
+    }
 }
