@@ -1,4 +1,4 @@
-import { window, TextDocument, Range } from 'vscode';
+import { window, TextDocument, Range, commands } from 'vscode';
 import { StaticReflect } from '../LanguageExtensions/StaticReflect';
 import { SymbolMetadata } from '../Symbols/Metadata';
 import { Configuration } from '../Configuration';
@@ -147,5 +147,16 @@ export class ActionIndent {
                 args,
             ),
         );
+    }
+
+    @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
+    static reindent(): Thenable<boolean | undefined> {
+        const activeTextEditor = window.activeTextEditor;
+
+        if (!activeTextEditor) {
+            return Promise.resolve(false);
+        }
+
+        return commands.executeCommand('editor.action.reindentselectedlines');
     }
 }

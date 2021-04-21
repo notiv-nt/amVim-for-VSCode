@@ -26,6 +26,7 @@ import { ActionReveal } from '../Actions/Reveal';
 import { ActionBlockCursor } from '../Actions/BlockCursor';
 import { ActionBlockOutlineCursor } from '../Actions/BlockOutlineCursor';
 import { ActionBookmark } from '../Actions/Bookmarks';
+import { ActionJump } from '../Actions/Jump';
 
 export class ModeVisual extends Mode {
     id = ModeID.VISUAL;
@@ -151,6 +152,9 @@ export class ModeVisual extends Mode {
             actions: [ActionReplace.selectionsWithCharacter, ActionSelection.shrinkToStarts],
         },
 
+        { keys: '8', actions: [ActionSelection.moveSelectionToPreviousFindMatch] },
+        { keys: '9', actions: [ActionSelection.moveSelectionToNextFindMatch] },
+
         { keys: '1', actions: [ActionCase.lowercaseSelections] },
         { keys: '2', actions: [ActionCase.uppercaseSelections] },
         {
@@ -183,6 +187,8 @@ export class ModeVisual extends Mode {
         //     args: { isVisualMode: true },
         // },
 
+        { keys: '=', actions: [ActionIndent.reindent] },
+
         // { keys: '/', actions: [ActionFind.focusFindWidget] },
 
         { keys: 'K', actions: [ActionMode.toVisualLine] },
@@ -204,6 +210,8 @@ export class ModeVisual extends Mode {
         { keys: 'v', actions: [ActionBookmark.toggleBookmark] },
         { keys: 'w', actions: [ActionBookmark.jumpToNext] },
         { keys: 'W', actions: [ActionBookmark.jumpToPrevious] },
+
+        { keys: 'm', actions: [ActionSelection.selectToBracket] },
 
         // { keys: 'z c', actions: [ActionFold.fold] },
         // { keys: 'z o', actions: [ActionFold.unfold] },

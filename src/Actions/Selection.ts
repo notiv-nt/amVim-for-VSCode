@@ -1,4 +1,4 @@
-import { window, Selection, Position } from 'vscode';
+import { window, Selection, Position, commands } from 'vscode';
 import { getCurrentMode } from '../extension';
 import { ModeID } from '../Modes/Mode';
 import { TextObject } from '../TextObjects/TextObject';
@@ -202,5 +202,35 @@ export class ActionSelection {
         });
 
         return Promise.resolve(true);
+    }
+
+    static selectToBracket(): Thenable<boolean | undefined> {
+        const activeTextEditor = window.activeTextEditor;
+
+        if (!activeTextEditor) {
+            return Promise.resolve(false);
+        }
+
+        return commands.executeCommand('editor.action.selectToBracket');
+    }
+
+    static moveSelectionToPreviousFindMatch(): Thenable<boolean | undefined> {
+        const activeTextEditor = window.activeTextEditor;
+
+        if (!activeTextEditor) {
+            return Promise.resolve(false);
+        }
+
+        return commands.executeCommand('editor.action.moveSelectionToPreviousFindMatch');
+    }
+
+    static moveSelectionToNextFindMatch(): Thenable<boolean | undefined> {
+        const activeTextEditor = window.activeTextEditor;
+
+        if (!activeTextEditor) {
+            return Promise.resolve(false);
+        }
+
+        return commands.executeCommand('editor.action.moveSelectionToNextFindMatch');
     }
 }

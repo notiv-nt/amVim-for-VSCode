@@ -27,6 +27,7 @@ import { ActionCommandLine } from '../Actions/CommandLine';
 import { MotionCharacter } from '../Motions/Character';
 import { MotionLine } from '../Motions/Line';
 import { ActionBookmark } from '../Actions/Bookmarks';
+import { ActionJump } from '../Actions/Jump';
 
 export class ModeNormal extends Mode {
     id = ModeID.NORMAL;
@@ -333,6 +334,8 @@ export class ModeNormal extends Mode {
         // { keys: '< <', actions: [ActionIndent.decrease] },
         // { keys: '> >', actions: [ActionIndent.increase] },
 
+        { keys: '=', actions: [ActionIndent.reindent] },
+
         { keys: '/', actions: [ActionFind.focusFindWidget] },
 
         { keys: 'k', actions: [ActionMode.toVisual] },
@@ -352,6 +355,8 @@ export class ModeNormal extends Mode {
         { keys: 'v', actions: [ActionBookmark.toggleBookmark] },
         { keys: 'w', actions: [ActionBookmark.jumpToNext] },
         { keys: 'W', actions: [ActionBookmark.jumpToPrevious] },
+
+        { keys: 'm', actions: [ActionJump.jumpToBracket] },
 
         // {
         //     keys: 'j',
