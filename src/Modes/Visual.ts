@@ -27,6 +27,7 @@ import { ActionBlockCursor } from '../Actions/BlockCursor';
 import { ActionBlockOutlineCursor } from '../Actions/BlockOutlineCursor';
 import { ActionBookmark } from '../Actions/Bookmarks';
 import { ActionJump } from '../Actions/Jump';
+import { ActionSurround } from '../Actions/Surround';
 
 export class ModeVisual extends Mode {
     id = ModeID.VISUAL;
@@ -212,6 +213,12 @@ export class ModeVisual extends Mode {
         { keys: 'W', actions: [ActionBookmark.jumpToPrevious] },
 
         { keys: 'm', actions: [ActionSelection.selectToBracket] },
+
+        { keys: "'", actions: [ActionSurround.surroundSingleQuote] },
+        { keys: '"', actions: [ActionSurround.surroundDoubleQuote] },
+        { keys: '(', actions: [ActionSurround.surroundRoundBrace] },
+        { keys: '{', actions: [ActionSurround.surroundCurlyBrace] },
+        { keys: '[', actions: [ActionSurround.surroundSquareBrace] },
 
         // { keys: 'z c', actions: [ActionFold.fold] },
         // { keys: 'z o', actions: [ActionFold.unfold] },

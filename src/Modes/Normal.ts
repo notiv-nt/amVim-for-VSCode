@@ -28,6 +28,7 @@ import { MotionCharacter } from '../Motions/Character';
 import { MotionLine } from '../Motions/Line';
 import { ActionBookmark } from '../Actions/Bookmarks';
 import { ActionJump } from '../Actions/Jump';
+import { ActionSurround } from '../Actions/Surround';
 
 export class ModeNormal extends Mode {
     id = ModeID.NORMAL;
@@ -387,6 +388,10 @@ export class ModeNormal extends Mode {
         {
             keys: 'space',
             actions: [ActionInsert.space],
+        },
+        {
+            keys: 'enter',
+            actions: [ActionInsert.enter],
         },
     ];
 
