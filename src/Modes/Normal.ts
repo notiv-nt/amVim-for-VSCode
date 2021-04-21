@@ -359,6 +359,12 @@ export class ModeNormal extends Mode {
 
         { keys: 'm', actions: [ActionJump.jumpToBracket] },
 
+        { keys: "'", actions: [ActionSurround.surroundSingleQuote] },
+        { keys: '"', actions: [ActionSurround.surroundDoubleQuote] },
+        { keys: '(', actions: [ActionSurround.surroundRoundBrace] },
+        { keys: '{', actions: [ActionSurround.surroundCurlyBrace] },
+        { keys: '[', actions: [ActionSurround.surroundSquareBrace] },
+
         // {
         //     keys: 'j',
         //     actions: [ActionReveal.primaryCursor],
