@@ -66,7 +66,7 @@ export class ModeNormal extends Mode {
             actions: [
                 () =>
                     ActionMoveCursor.byMotions({
-                        motions: [MotionLine.start()],
+                        motions: [MotionLine.firstNonBlank()],
                     }),
                 ActionMode.toInsert,
             ],
