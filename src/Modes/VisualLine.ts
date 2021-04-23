@@ -63,11 +63,11 @@ export class ModeVisualLine extends Mode {
         //     actions: [ActionSelection.shrinkToEnds, ActionMode.toInsert],
         // },
 
-        // {
-        //     keys: 'backspace',
-        //     actions: [ActionDelete.byLines],
-        //     args: { shouldYank: true },
-        // },
+        {
+            keys: 'backspace',
+            actions: [ActionDelete.byLines],
+            args: { shouldYank: false },
+        },
         // {
         //     keys: 'delete',
         //     actions: [ActionDelete.byLines],
@@ -185,11 +185,11 @@ export class ModeVisualLine extends Mode {
         { keys: 'k', actions: [ActionSelection.shrinkToActives] },
         { keys: 'K', actions: [ActionSelection.shrinkToActives] },
 
-        {
-            keys: '`',
-            actions: [ActionReveal.primaryCursor],
-            args: { revealType: TextEditorRevealType.InCenter },
-        },
+        // {
+        //     keys: '`',
+        //     actions: [ActionReveal.primaryCursor],
+        //     args: { revealType: TextEditorRevealType.InCenter },
+        // },
         {
             keys: ';',
             actions: [ActionReveal.primaryCursor],

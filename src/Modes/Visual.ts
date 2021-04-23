@@ -67,11 +67,11 @@ export class ModeVisual extends Mode {
         //     actions: [ActionSelection.shrinkToEnds, ActionMode.toInsert],
         // },
 
-        // {
-        //     keys: 'backspace',
-        //     actions: [ActionDelete.selectionsOrRight],
-        //     args: { shouldYank: true },
-        // },
+        {
+            keys: 'backspace',
+            actions: [ActionDelete.selectionsOrLeft],
+            args: { shouldYank: false },
+        },
         // {
         //     keys: 'delete',
         //     actions: [ActionDelete.selectionsOrRight],
@@ -197,11 +197,11 @@ export class ModeVisual extends Mode {
 
         { keys: 'r', actions: [ActionSelection.reverseSelection] },
 
-        {
-            keys: '`',
-            actions: [ActionReveal.primaryCursor],
-            args: { revealType: TextEditorRevealType.InCenter },
-        },
+        // {
+        //     keys: '`',
+        //     actions: [ActionReveal.primaryCursor],
+        //     args: { revealType: TextEditorRevealType.InCenter },
+        // },
         {
             keys: ';',
             actions: [ActionReveal.primaryCursor],

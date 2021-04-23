@@ -275,6 +275,12 @@ export class ModeNormal extends Mode {
         // },
         { keys: 'D', actions: [ActionJoinLines.onSelections] },
 
+        {
+            keys: 'backspace',
+            actions: [ActionDelete.selectionsOrLeft],
+            args: { shouldYank: false },
+        },
+
         { keys: 'p {char}', actions: [ActionReplace.charactersWithCharacter] },
         // { keys: '{N} r {char}', actions: [ActionReplace.charactersWithCharacter] },
         // { keys: 'R', actions: [ActionMode.toReplace] },
@@ -342,11 +348,11 @@ export class ModeNormal extends Mode {
         { keys: 'k', actions: [ActionMode.toVisual] },
         { keys: 'K', actions: [ActionMode.toVisualLine] },
 
-        {
-            keys: '`',
-            actions: [ActionReveal.primaryCursor],
-            args: { revealType: TextEditorRevealType.InCenter },
-        },
+        // {
+        //     keys: '`',
+        //     actions: [ActionReveal.primaryCursor],
+        //     args: { revealType: TextEditorRevealType.InCenter },
+        // },
         {
             keys: ';',
             actions: [ActionReveal.primaryCursor],
