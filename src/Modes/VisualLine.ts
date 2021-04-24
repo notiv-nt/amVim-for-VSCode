@@ -185,6 +185,8 @@ export class ModeVisualLine extends Mode {
         { keys: 'k', actions: [ActionSelection.shrinkToActives] },
         { keys: 'K', actions: [ActionSelection.shrinkToActives] },
 
+        { keys: 'r', actions: [ActionSelection.reverseSelection] },
+
         // {
         //     keys: '`',
         //     actions: [ActionReveal.primaryCursor],
