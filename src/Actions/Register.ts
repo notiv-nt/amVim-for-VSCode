@@ -56,7 +56,7 @@ export class ActionRegister {
             .map((range) => {
                 return document.getText(document.validateRange(range));
             })
-            .join('');
+            .join('\n');
 
         if (Configuration.useSystemClipboard === true) {
             // Write to clipboard but then continue to allow
