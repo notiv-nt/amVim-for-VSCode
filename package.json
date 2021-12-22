@@ -252,6 +252,7 @@
 	],
 	"scripts": {
 		"vscode:prepublish": "webpack --mode production",
+		"build": "webpack --mode production",
 		"compile": "webpack --mode development",
 		"test-compile": "tsc -p ./",
 		"watch": "webpack --mode development --watch --info-verbosity verbose",
