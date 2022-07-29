@@ -207,6 +207,14 @@ export class ModeVisual extends Mode {
             actions: [ActionReveal.primaryCursor],
             args: { revealType: TextEditorRevealType.InCenter },
         },
+        // {
+        //     keys: 'u',
+        //     actions: [ActionCase.lowercaseSelections, ActionSelection.shrinkToStarts],
+        // },
+        // {
+        //     keys: 'U',
+        //     actions: [ActionCase.uppercaseSelections, ActionSelection.shrinkToStarts],
+        // },
 
         { keys: 'v', actions: [ActionBookmark.toggleBookmark] },
         { keys: 'w', actions: [ActionBookmark.jumpToNext] },
