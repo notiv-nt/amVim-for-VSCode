@@ -12,6 +12,7 @@ import { MotionLine } from '../../Motions/Line';
 import { MotionParagraph } from '../../Motions/Paragraph';
 import { MotionDocument } from '../../Motions/Document';
 import { MotionNavigation } from '../../Motions/Navigation';
+import { MotionWrappedLine } from '../../Motions/WrappedLine';
 
 interface MotionGenerator {
     (args?: {}): Motion;
@@ -95,6 +96,31 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
         { keys: '0', motionGenerators: [MotionLine.start] },
 
         { keys: 'b', motionGenerators: [MotionLine.end] },
+        // { keys: 'g ^', motionGenerators: [MotionWrappedLine.firstNonBlank] },
+        // { keys: 'g 0', motionGenerators: [MotionWrappedLine.start] },
+        // { keys: 'g $', motionGenerators: [MotionWrappedLine.end] },
+        // { keys: 'g m', motionGenerators: [MotionWrappedLine.middle] },
+        // { keys: 'g k', motionGenerators: [MotionWrappedLine.up] },
+        // { keys: 'g j', motionGenerators: [MotionWrappedLine.down] },
+
+        // {
+        //     keys: '-',
+        //     motionGenerators: [MotionCharacter.up, MotionLine.firstNonBlank],
+        // },
+        // {
+        //     keys: '+',
+        //     motionGenerators: [MotionCharacter.down, MotionLine.firstNonBlank],
+        // },
+        // {
+        //     keys: '_',
+        //     motionGenerators: [
+        //         (args: { n?: number }) =>
+        //             MotionCharacter.down({
+        //                 n: args.n === undefined ? 0 : args.n - 1,
+        //             }),
+        //         MotionLine.firstNonBlank,
+        //     ],
+        // },
 
         // {
         //     keys: '-',
@@ -168,7 +194,7 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
         if (map) {
             // Take N from last special key match.
             if (lastSpecialKeyMatch && lastSpecialKeyMatch.specialKey instanceof SpecialKeyN) {
-                map.args = Object.assign(map.args, { n: additionalArgs.n });
+                map.args = Object.assign(map.args ?? {}, { n: additionalArgs.n });
                 delete additionalArgs.n;
             }
 

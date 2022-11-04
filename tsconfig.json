@@ -9,7 +9,7 @@
         "experimentalDecorators": true,
         "strictNullChecks": true,
         "noImplicitThis": true,
-        "noUnusedLocals": false,
+        "noUnusedLocals": true,
         "sourceMap": true,
         "rootDir": "."
     },
