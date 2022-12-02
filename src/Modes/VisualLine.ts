@@ -259,7 +259,7 @@ export class ModeVisualLine extends Mode {
         return this._recordedCommandMaps;
     }
 
-    protected onWillCommandMapMakesChanges(map: CommandMap): Promise<boolean> {
+    protected onWillCommandMapMakesChanges(map: CommandMap): void {
         const actions = map.actions.filter((action) => {
             return (
                 StaticReflect.getMetadata(SymbolMetadata.Action.shouldSkipOnRepeat, action) !== true
@@ -283,7 +283,5 @@ export class ModeVisualLine extends Mode {
                 isRepeating: true,
             },
         ];
-
-        return Promise.resolve(true);
     }
 }
