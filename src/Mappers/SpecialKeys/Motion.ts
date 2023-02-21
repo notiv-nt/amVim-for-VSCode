@@ -76,12 +76,12 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
         //     args: { isTill: true },
         // },
 
-        // { keys: ';', motionGenerators: [MotionMatch.repeatLast] },
-        // {
-        //     keys: ',',
-        //     motionGenerators: [MotionMatch.repeatLast],
-        //     args: { isReverse: true },
-        // },
+        { keys: 'y', motionGenerators: [MotionMatch.repeatLast] },
+        {
+            keys: 'Y',
+            motionGenerators: [MotionMatch.repeatLast],
+            args: { isReverse: true },
+        },
 
         // {
         //     keys: '%',
