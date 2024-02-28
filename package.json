@@ -1,281 +1,285 @@
 {
-	"name": "amvim-nt",
-	"version": "1.36.1-pre",
-	"publisher": "notiv",
-	"icon": "images/icon.png",
-	"displayName": "amVim",
-	"description": "The Vim mode for Visual Studio Code that works as expected.",
-	"galleryBanner": {
-		"color": "#232323",
-		"theme": "dark"
-	},
-	"keywords": [
-		"vim",
-		"vi",
-		"vintage",
-		"keybindings",
-		"mode"
-	],
-	"categories": [
-		"Other",
-		"Keymaps"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/aioutecism/amVim-for-VSCode.git"
-	},
-	"bugs": {
-		"url": "https://github.com/aioutecism/amVim-for-VSCode/issues"
-	},
-	"homepage": "https://github.com/aioutecism/amVim-for-VSCode#readme",
-	"author": "aioutecism",
-	"license": "ISC",
-	"engines": {
-		"vscode": "^1.62.0"
-	},
-	"main": "./dist/extension",
-	"extensionKind": [
-		"ui",
-		"workspace"
-	],
-	"contributes": {
-		"configuration": {
-			"title": "amVim configuration",
-			"properties": {
-				"amVim.bindCtrlCommands": {
-					"type": "boolean",
-					"default": true,
-					"description": "Set to `false` to disable `Ctrl+<key>` keybindings."
-				},
-				"amVim.startInInsertMode": {
-					"type": "boolean",
-					"default": false,
-					"description": "Set to `true` to start in Insert mode when opening files."
-				},
-				"amVim.smartRelativeLineNumbers": {
-					"type": "boolean",
-					"default": false,
-					"description": "Set to `true` to will make line numbers relative when not in Insert mode."
-				},
-				"amVim.mimicVimSearchBehavior": {
-					"type": "boolean",
-					"default": true,
-					"description": "Set to `false` to keep VSCode's keybinding when searching."
-				},
-				"amVim.useSystemClipboard": {
-					"type": "boolean",
-					"default": false,
-					"description": "Set to `true` to copy to and paste from the system clipboard."
-				},
-				"amVim.vimStyleNavigationInListView": {
-					"type": "boolean",
-					"default": true,
-					"description": "Set to `false` to disable Vim style navigation in sidebar."
-				}
-			}
-		},
-		"keybindings": [
-			{
-				"command": "amVim.backspace",
-				"key": "backspace",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.delete",
-				"key": "delete",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.space",
-				"key": "space",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.left",
-				"key": "left",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.right",
-				"key": "right",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.up",
-				"key": "up",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.down",
-				"key": "down",
-				"when": "editorTextFocus && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.escape",
-				"key": "escape",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "amVim.ctrl+[",
-				"key": "ctrl+[",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands"
-			},
-			{
-				"command": "amVim.ctrl+c",
-				"key": "ctrl+c",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands"
-			},
-			{
-				"command": "amVim.ctrl+r",
-				"key": "ctrl+r",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode == 'NORMAL'"
-			},
-			{
-				"command": "amVim.ctrl+u",
-				"key": "ctrl+u",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode == 'INSERT'"
-			},
-			{
-				"command": "amVim.ctrl+w",
-				"key": "ctrl+w",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode == 'INSERT'"
-			},
-			{
-				"command": "amVim.ctrl+f",
-				"key": "ctrl+f",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode != 'INSERT'"
-			},
-			{
-				"command": "amVim.ctrl+b",
-				"key": "ctrl+b",
-				"when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode != 'INSERT'"
-			},
-			{
-				"key": "enter",
-				"command": "amVim.executeNativeFind",
-				"when": "amVim.configuration.shouldMimicVimSearchBehavior && editorFocus && findInputFocussed && findWidgetVisible"
-			},
-			{
-				"key": "j",
-				"command": "list.focusDown",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "k",
-				"command": "list.focusUp",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "o",
-				"command": "list.toggleExpand",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "l",
-				"command": "list.select",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "h",
-				"command": "list.collapse",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "g g",
-				"command": "list.focusFirst",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "shift+G",
-				"command": "list.focusLast",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "ctrl+d",
-				"command": "list.focusPageDown",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "ctrl+u",
-				"command": "list.focusPageUp",
-				"when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
-			},
-			{
-				"key": "escape",
-				"command": "closeFindWidget",
-				"when": "editorFocus && findWidgetVisible"
-			},
-			{
-				"key": "escape",
-				"command": "closeBreakpointWidget",
-				"when": "breakpointWidgetVisible && editorFocus"
-			},
-			{
-				"key": "escape",
-				"command": "closeMarkersNavigation",
-				"when": "editorFocus && markersNavigationVisible"
-			},
-			{
-				"key": "escape",
-				"command": "closeReferenceSearch",
-				"when": "referenceSearchVisible && !config.editor.stablePeek"
-			},
-			{
-				"key": "escape",
-				"command": "cancelRenameInput",
-				"when": "editorFocus && renameInputVisible"
-			},
-			{
-				"key": "escape",
-				"command": "closeAccessibilityHelp",
-				"when": "accessibilityHelpWidgetVisible && editorFocus"
-			},
-			{
-				"key": "escape",
-				"command": "closeReplaceInFilesWidget",
-				"when": "replaceInputBoxFocus && searchViewletVisible"
-			},
-			{
-				"key": "escape",
-				"command": "workbench.action.closeMessages",
-				"when": "globalMessageVisible"
-			},
-			{
-				"key": "escape",
-				"command": "workbench.action.closeQuickOpen",
-				"when": "inQuickOpen"
-			}
-		]
-	},
-	"activationEvents": [
-		"*"
-	],
-	"scripts": {
-		"vscode:prepublish": "webpack --mode production",
-		"compile": "webpack --mode development",
-		"test-compile": "tsc -p ./",
-		"watch": "webpack --mode development --watch",
-		"pretest": "npm run compile && npm run test-compile",
-		"test": "node ./out/test/runTest.js",
-		"sync-changelog": "node ./node_modules/github-releases-renderer/index.js run aioutecism amVim-for-VSCode CHANGELOG.template.md CHANGELOG.md -c 0",
-		"prettier-check": "prettier --list-different \"{src,test}/**/*.ts\"",
-		"prettier-write": "prettier --write \"{src,test}/**/*.ts\""
-	},
-	"devDependencies": {
-		"@types/glob": "^8.0.0",
-		"@types/mocha": "^10.0.0",
-		"@types/node": "^16.18.2",
-		"@types/vscode": "^1.62.0",
-		"@vscode/test-electron": "2.2.0",
-		"github-releases-renderer": "github:aioutecism/github-releases-renderer",
-		"glob": "^8.0.3",
-		"mocha": "^10.1.0",
-		"prettier": "^2.7.1",
-		"source-map-support": "^0.5.19",
-		"ts-loader": "^9.4.1",
-		"typescript": "^4.8.4",
-		"webpack": "^5.74.0",
-		"webpack-cli": "^4.10.0"
-	},
-	"dependencies": {}
+    "name": "amvim",
+    "version": "1.37.0",
+    "publisher": "auiworks",
+    "icon": "images/icon.png",
+    "displayName": "amVim",
+    "description": "The Vim mode for Visual Studio Code that works as expected.",
+    "galleryBanner": {
+        "color": "#232323",
+        "theme": "dark"
+    },
+    "keywords": [
+        "vim",
+        "vi",
+        "vintage",
+        "keybindings",
+        "mode"
+    ],
+    "categories": [
+        "Other",
+        "Keymaps"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aioutecism/amVim-for-VSCode.git"
+    },
+    "bugs": {
+        "url": "https://github.com/aioutecism/amVim-for-VSCode/issues"
+    },
+    "homepage": "https://github.com/aioutecism/amVim-for-VSCode#readme",
+    "author": "aioutecism",
+    "license": "ISC",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "main": "./dist/extension.js",
+    "extensionKind": [
+        "ui",
+        "workspace"
+    ],
+    "contributes": {
+        "configuration": {
+            "title": "amVim configuration",
+            "properties": {
+                "amVim.bindCtrlCommands": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to `false` to disable `Ctrl+<key>` keybindings."
+                },
+                "amVim.startInInsertMode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to `true` to start in Insert mode when opening files."
+                },
+                "amVim.smartRelativeLineNumbers": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to `true` to will make line numbers relative when not in Insert mode."
+                },
+                "amVim.mimicVimSearchBehavior": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to `false` to keep VSCode's keybinding when searching."
+                },
+                "amVim.useSystemClipboard": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to `true` to copy to and paste from the system clipboard."
+                },
+                "amVim.vimStyleNavigationInListView": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to `false` to disable Vim style navigation in sidebar."
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "amVim.backspace",
+                "key": "backspace",
+                "when": "editorTextFocus && amVim.mode != 'INSERT'"
+            },
+            {
+                "command": "amVim.delete",
+                "key": "delete",
+                "when": "editorTextFocus && amVim.mode != 'INSERT'"
+            },
+            {
+                "command": "amVim.space",
+                "key": "space",
+                "when": "editorTextFocus && amVim.mode != 'INSERT'"
+            },
+            {
+                "command": "amVim.left",
+                "key": "left",
+                "when": "editorTextFocus && amVim.mode != 'INSERT'"
+            },
+            {
+                "command": "amVim.right",
+                "key": "right",
+                "when": "editorTextFocus && amVim.mode != 'INSERT'"
+            },
+            {
+                "command": "amVim.up",
+                "key": "up",
+                "when": "editorTextFocus && amVim.mode != 'INSERT' && !suggestWidgetVisible"
+            },
+            {
+                "command": "amVim.down",
+                "key": "down",
+                "when": "editorTextFocus && amVim.mode != 'INSERT' && !suggestWidgetVisible"
+            },
+            {
+                "command": "amVim.escape",
+                "key": "escape",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "amVim.ctrl+[",
+                "key": "ctrl+[",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands"
+            },
+            {
+                "command": "amVim.ctrl+c",
+                "key": "ctrl+c",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands"
+            },
+            {
+                "command": "amVim.ctrl+r",
+                "key": "ctrl+r",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode == 'NORMAL'"
+            },
+            {
+                "command": "amVim.ctrl+u",
+                "key": "ctrl+u",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode == 'INSERT'"
+            },
+            {
+                "command": "amVim.ctrl+w",
+                "key": "ctrl+w",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode == 'INSERT'"
+            },
+            {
+                "command": "amVim.ctrl+f",
+                "key": "ctrl+f",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode != 'INSERT'"
+            },
+            {
+                "command": "amVim.ctrl+b",
+                "key": "ctrl+b",
+                "when": "editorTextFocus && amVim.configuration.shouldBindCtrlCommands && amVim.mode != 'INSERT'"
+            },
+            {
+                "key": "enter",
+                "command": "amVim.executeNativeFind",
+                "when": "amVim.configuration.shouldMimicVimSearchBehavior && editorFocus && findInputFocussed && findWidgetVisible"
+            },
+            {
+                "key": "j",
+                "command": "list.focusDown",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "k",
+                "command": "list.focusUp",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "o",
+                "command": "list.toggleExpand",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "l",
+                "command": "list.select",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "h",
+                "command": "list.collapse",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "g g",
+                "command": "list.focusFirst",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "shift+G",
+                "command": "list.focusLast",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "ctrl+d",
+                "command": "list.focusPageDown",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "ctrl+u",
+                "command": "list.focusPageUp",
+                "when": "amVim.configuration.shouldUseVimStyleNavigationInListView && listFocus && !inputFocus"
+            },
+            {
+                "key": "escape",
+                "command": "closeFindWidget",
+                "when": "editorFocus && findWidgetVisible"
+            },
+            {
+                "key": "escape",
+                "command": "closeBreakpointWidget",
+                "when": "breakpointWidgetVisible && editorFocus"
+            },
+            {
+                "key": "escape",
+                "command": "closeMarkersNavigation",
+                "when": "editorFocus && markersNavigationVisible"
+            },
+            {
+                "key": "escape",
+                "command": "closeReferenceSearch",
+                "when": "referenceSearchVisible && !config.editor.stablePeek"
+            },
+            {
+                "key": "escape",
+                "command": "cancelRenameInput",
+                "when": "editorFocus && renameInputVisible"
+            },
+            {
+                "key": "escape",
+                "command": "closeAccessibilityHelp",
+                "when": "accessibilityHelpWidgetVisible && editorFocus"
+            },
+            {
+                "key": "escape",
+                "command": "closeReplaceInFilesWidget",
+                "when": "replaceInputBoxFocus && searchViewletVisible"
+            },
+            {
+                "key": "escape",
+                "command": "workbench.action.closeMessages",
+                "when": "globalMessageVisible"
+            },
+            {
+                "key": "escape",
+                "command": "workbench.action.closeQuickOpen",
+                "when": "inQuickOpen"
+            }
+        ]
+    },
+    "activationEvents": [
+        "*"
+    ],
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "compile": "webpack --mode development",
+        "compile-tests": "tsc -p ./",
+        "watch": "webpack --mode development --watch",
+        "watch-tests": "tsc -p ./ -w",
+        "pretest": "npm run compile && npm run compile-tests",
+        "test": "vscode-test",
+        "lint": "eslint --ext ts src test",
+        "sync-changelog": "node ./node_modules/github-releases-renderer/index.js run aioutecism amVim-for-VSCode CHANGELOG.template.md CHANGELOG.md -c 0",
+        "prettier-write": "prettier --write \"{src,test}/**/*.ts\""
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^18.x",
+        "@types/vscode": "^1.75.0",
+        "@typescript-eslint/eslint-plugin": "^7.0.2",
+        "@typescript-eslint/parser": "^7.0.2",
+        "@vscode/test-cli": "^0.0.6",
+        "@vscode/test-electron": "^2.3.9",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "github-releases-renderer": "github:aioutecism/github-releases-renderer",
+        "prettier": "^3.2.5",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.3.3",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4"
+    },
+    "dependencies": {}
 }
