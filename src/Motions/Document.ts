@@ -1,5 +1,6 @@
-import { window, Position } from 'vscode';
+import { window, Position, TextEditorRevealType } from 'vscode';
 import { Motion } from './Motion';
+import { ActionReveal } from '../Actions/Reveal';
 
 export class MotionDocument extends Motion {
     private line?: number;
@@ -17,9 +18,15 @@ export class MotionDocument extends Motion {
     }
 
     static toLineOrLast(args: { n?: number }): Motion {
-        return MotionDocument.toLine({
+        const result = MotionDocument.toLine({
             n: args.n === undefined ? +Infinity : args.n,
         });
+
+        setImmediate(() => {
+            ActionReveal.primaryCursor({ revealType: TextEditorRevealType.InCenter });
+        });
+
+        return result;
     }
 
     static toLinePercent(args: { n: number }): Motion {
