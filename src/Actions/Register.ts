@@ -61,6 +61,12 @@ export class ActionRegister {
             })
             .join('\n');
 
+        const totalSelectionLength = text.replaceAll('\n', '').trim().length;
+
+        if (totalSelectionLength === 0) {
+            return Promise.resolve(true);
+        }
+
         if (Configuration.useSystemClipboard === true) {
             // Write to clipboard but then continue to allow
             // for saving `isLinewise` state
