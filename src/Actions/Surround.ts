@@ -1,4 +1,4 @@
-import { commands, SnippetString, window } from 'vscode';
+import { commands, window } from 'vscode';
 import { StaticReflect } from '../LanguageExtensions/StaticReflect';
 import { SymbolMetadata } from '../Symbols/Metadata';
 
@@ -11,7 +11,7 @@ export class ActionSurround {
             return Promise.resolve(false);
         }
 
-        return activeTextEditor.insertSnippet(new SnippetString("'$TM_SELECTED_TEXT'"));
+        return commands.executeCommand('default:type', { text: "'" });
     }
 
     @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
@@ -22,7 +22,7 @@ export class ActionSurround {
             return Promise.resolve(false);
         }
 
-        return activeTextEditor.insertSnippet(new SnippetString('"$TM_SELECTED_TEXT"'));
+        return commands.executeCommand('default:type', { text: '"' });
     }
 
     @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
@@ -33,7 +33,7 @@ export class ActionSurround {
             return Promise.resolve(false);
         }
 
-        return activeTextEditor.insertSnippet(new SnippetString('`$TM_SELECTED_TEXT`'));
+        return commands.executeCommand('default:type', { text: '`' });
     }
 
     @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
@@ -44,7 +44,7 @@ export class ActionSurround {
             return Promise.resolve(false);
         }
 
-        return activeTextEditor.insertSnippet(new SnippetString('($TM_SELECTED_TEXT)'));
+        return commands.executeCommand('default:type', { text: '(' });
     }
 
     @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
@@ -55,7 +55,7 @@ export class ActionSurround {
             return Promise.resolve(false);
         }
 
-        return activeTextEditor.insertSnippet(new SnippetString('{$TM_SELECTED_TEXT}'));
+        return commands.executeCommand('default:type', { text: '{' });
     }
 
     @StaticReflect.metadata(SymbolMetadata.Action.isChange, true)
@@ -66,6 +66,6 @@ export class ActionSurround {
             return Promise.resolve(false);
         }
 
-        return activeTextEditor.insertSnippet(new SnippetString('[$TM_SELECTED_TEXT]'));
+        return commands.executeCommand('default:type', { text: '[' });
     }
 }
