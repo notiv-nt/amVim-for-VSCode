@@ -2,6 +2,8 @@ import { window, Selection, Position, commands } from 'vscode';
 import { getCurrentMode } from '../extension';
 import { ModeID } from '../Modes/Mode';
 import { TextObject } from '../TextObjects/TextObject';
+import { ActionMoveCursor } from './MoveCursor';
+import { ActionReveal } from './Reveal';
 import { UtilSelection } from '../Utils/Selection';
 import { UtilRange } from '../Utils/Range';
 
@@ -200,7 +202,14 @@ export class ActionSelection {
             return selection.isReversed ? new Selection(start, end) : new Selection(end, start);
         });
 
-        return Promise.resolve(true);
+        const currentMode = getCurrentMode();
+        ActionMoveCursor.updatePreferredColumn({
+            force: true,
+            isVisualMode:
+                currentMode?.id === ModeID.VISUAL || currentMode?.id === ModeID.VISUAL_LINE,
+        });
+
+        return ActionReveal.primaryCursor();
     }
 
     static selectToBracket(): Thenable<boolean | undefined> {

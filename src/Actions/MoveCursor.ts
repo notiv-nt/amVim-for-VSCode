@@ -24,8 +24,8 @@ export class ActionMoveCursor {
         }, 100);
     }
 
-    static updatePreferredColumn(): void {
-        if (ActionMoveCursor.isUpdatePreferredColumnBlocked) {
+    static updatePreferredColumn(args: { force?: boolean; isVisualMode?: boolean } = {}): void {
+        if (ActionMoveCursor.isUpdatePreferredColumnBlocked && !args.force) {
             return;
         }
 
@@ -36,7 +36,13 @@ export class ActionMoveCursor {
         }
 
         ActionMoveCursor.preferredColumnBySelectionIndex = activeTextEditor.selections.map(
-            (selection) => UtilPosition.getColumn(activeTextEditor, selection.active),
+            (selection) =>
+                UtilPosition.getColumn(
+                    activeTextEditor,
+                    UtilSelection.getCursorPosition(selection, {
+                        isVisualMode: args.isVisualMode,
+                    }),
+                ),
         );
     }
 
@@ -69,9 +75,9 @@ export class ActionMoveCursor {
             const selection = activeTextEditor.selections[i];
             let anchor: Position;
 
-            let active = args.isVisualMode
-                ? UtilSelection.getActiveInVisualMode(selection)
-                : selection.active;
+            let active = UtilSelection.getCursorPosition(selection, {
+                isVisualMode: args.isVisualMode,
+            });
 
             for (const motion of args.motions) {
                 active = await motion.apply(active, {
@@ -131,6 +137,12 @@ export class ActionMoveCursor {
         }
 
         activeTextEditor.selections = selections;
+        if (args.motions.some((motion) => motion.isCharacterUpdated)) {
+            ActionMoveCursor.updatePreferredColumn({
+                force: true,
+                isVisualMode: args.isVisualMode || args.isVisualLineMode,
+            });
+        }
         await ActionReveal.primaryCursor();
 
         return true;
