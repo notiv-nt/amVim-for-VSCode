@@ -26,6 +26,7 @@ export class Dispatcher {
     };
 
     private disposables: Disposable[] = [];
+    private inputQueue: Promise<void> = Promise.resolve();
 
     constructor(context: ExtensionContext) {
         Object.keys(this.modes).forEach((key) => {
@@ -70,7 +71,11 @@ export class Dispatcher {
                 // Ensure this is executed after all pending commands.
                 setTimeout(async () => {
                     await ActionMode.switchByActiveSelections(this._currentMode.id);
-                    ActionMoveCursor.updatePreferredColumn();
+                    ActionMoveCursor.updatePreferredColumn({
+                        isVisualMode:
+                            this._currentMode.id === ModeID.VISUAL ||
+                            this._currentMode.id === ModeID.VISUAL_LINE,
+                    });
                     this._currentMode.onDidChangeTextEditorSelection();
                 }, 2);
             }),
@@ -81,14 +86,25 @@ export class Dispatcher {
                     // Passing `null` to `currentMode` to force mode switch.
                     await ActionMode.switchByActiveSelections(null);
                 }
-                ActionMoveCursor.updatePreferredColumn();
+                ActionMoveCursor.updatePreferredColumn({
+                    isVisualMode:
+                        this._currentMode.id === ModeID.VISUAL ||
+                        this._currentMode.id === ModeID.VISUAL_LINE,
+                });
             }),
         );
     }
 
     private inputHandler(key: string, args: {} = {}): () => void {
         return () => {
-            this._currentMode.input(key, args);
+            this.inputQueue = this.inputQueue
+                .catch(() => undefined)
+                .then(async () => {
+                    const mode = this._currentMode;
+                    mode.input(key, args);
+                    await mode.whenIdle();
+                })
+                .catch(() => undefined);
         };
     }
 

@@ -59,4 +59,13 @@ export class UtilSelection {
 
         return !isReversed && active.character > 0 ? active.translate(0, -1) : active;
     }
+
+    static getCursorPosition(
+        selection: Selection,
+        args: { isVisualMode?: boolean } = {},
+    ): Position {
+        return args.isVisualMode
+            ? UtilSelection.getActiveInVisualMode(selection)
+            : selection.active;
+    }
 }
