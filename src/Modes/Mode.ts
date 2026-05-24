@@ -19,6 +19,7 @@ export abstract class Mode {
     private pendings: CommandMap[] = [];
     private executing: boolean = false;
     private inputs: string[] = [];
+    private idleResolvers: (() => void)[] = [];
 
     protected mapper: CommandMapper = new CommandMapper();
 
@@ -52,6 +53,25 @@ export abstract class Mode {
 
     private clearPendings(): void {
         this.pendings = [];
+    }
+
+    private resolveIdle(): void {
+        if (this.executing || this.pendings.length !== 0) {
+            return;
+        }
+
+        const resolvers = this.idleResolvers.splice(0);
+        resolvers.forEach((resolve) => resolve());
+    }
+
+    whenIdle(): Promise<void> {
+        if (!this.executing && this.pendings.length === 0) {
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve) => {
+            this.idleResolvers.push(resolve);
+        });
     }
 
     input(key: string, args: {} = {}): MatchResultKind {
@@ -125,6 +145,7 @@ export abstract class Mode {
 
             if (!map) {
                 this.executing = false;
+                this.resolveIdle();
                 return;
             }
 
@@ -149,6 +170,7 @@ export abstract class Mode {
             promise.then(one.bind(this), () => {
                 this.clearPendings();
                 this.executing = false;
+                this.resolveIdle();
             });
         };
 

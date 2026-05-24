@@ -48,9 +48,11 @@ export abstract class Motion {
         }
 
         const preferredColumn =
-            !this.isCharacterUpdated && option ? (option.preferredColumn as number) : null;
+            !this.isCharacterUpdated && option
+                ? (option.preferredColumn as number | undefined)
+                : undefined;
 
-        if (preferredColumn) {
+        if (preferredColumn !== undefined) {
             const tabSize = activeTextEditor.options.tabSize as number;
             const toLineText = document.lineAt(toLine).text;
 
