@@ -36,7 +36,6 @@ export class ActionMoveCursor {
         }
 
         ActionMoveCursor.preferredColumnBySelectionIndex = activeTextEditor.selections.map(
-            (selection) => UtilPosition.getColumn(activeTextEditor, selection.active),
             (selection) =>
                 UtilPosition.getColumn(
                     activeTextEditor,
